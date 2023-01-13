@@ -3,13 +3,13 @@ const { Component, useEffect, useState, useRef } = require("react");
 import REQUEST from "../Components/Request";
 
 const JupiterWeather = () => {
-
+    
     const [HomePageContent, setHomePageContent] = useState(<h1>
         Jupiter Weather
     </h1>);
 
     const getRegions = async () => {
-        let regionsList = await REQUEST.GET_REQUEST("http://dataservice.accuweather.com/locations/v1/regions/?apikey=P03jgSzSiEcVA1y2lc0EECGvF3w07aig");
+        let regionsList = await REQUEST.GET(`http://dataservice.accuweather.com/locations/v1/regions/?apikey=${process.env.APIKEY}`);
         if (regionsList.data) {
             setHomePageContent(<table>
                 {regionsList.data.map(region => {
