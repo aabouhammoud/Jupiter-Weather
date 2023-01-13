@@ -1,12 +1,13 @@
+//require("dotenv").config();
 const Axios = require("axios").default;
-require("dotenv").config()
-
-export const GET_REQUEST = async (url) => {
-    let res = await Axios.get(url);
-    return res;
+let REQUEST = {
+    GET_REQUEST : async (url, config) => {
+        let res = await Axios.get(url, config);
+        return res;
+    },
+    POST_REQUEST : async (url, payload, config) => {
+        let res = await Axios.post(url, payload, config);
+        return res;
+    }
 }
-
-export const POST_REQUEST = async (url, payload) => {
-    let res = await Axios.post(url, payload);
-    return res;
-}
+export default REQUEST;
