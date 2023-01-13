@@ -1,1 +1,1 @@
-I'm changing the contentes of the readme file
+A simple and informative weather app.
