@@ -8,6 +8,8 @@ const JupiterWeather = () => {
         Jupiter Weather
     </h1>);
 
+    const Hello = 10;
+
     const getRegions = async () => {
         let regionsList = await REQUEST.GET_REQUEST("http://dataservice.accuweather.com/locations/v1/regions/?apikey=P03jgSzSiEcVA1y2lc0EECGvF3w07aig");
         if (regionsList.data) {
