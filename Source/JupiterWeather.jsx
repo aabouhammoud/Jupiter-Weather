@@ -31,6 +31,7 @@ const JupiterWeather = () => {
             <button onClick={getRegions}><span>Get Regions</span></button>
         </>
     )
+    
 }
 
 export default JupiterWeather
