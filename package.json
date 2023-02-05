@@ -1,12 +1,11 @@
 {
   "name": "jupiterweather",
   "version": "1.0.0",
-  "description": "A simple and informative weather app.",
+  "description": "A simple and informative weather app",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server .",
-    "build": "Webpack .",
-    "test": "test"
+    "build": "Webpack ."
   },
   "keywords": [
     "jupiter",
@@ -21,8 +20,10 @@
     "axios": "^1.2.2",
     "dotenv": "^16.0.3",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.0",
     "react-cookie": "^4.1.1",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.20.7",
@@ -37,7 +38,9 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-jest": "^27.2.1",
+    "file-loader": "^6.2.0",
     "path": "^0.12.7",
+    "style-loader": "^3.3.1",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"

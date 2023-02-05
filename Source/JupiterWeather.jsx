@@ -1,51 +1,86 @@
 
-const { Component, useEffect, useState, useRef } = require("react");
-import { useCookies } from "react-cookie";
+const { Component, Fragment } = require("react");
+import Cookies from "universal-cookie";
 import cnst from "./Constants";
 import REQUEST from "../Components/Request";
+import { Button, Container, Modal } from "react-bootstrap";
+import LoginUI from "./LoginUI";
 
-function load_page_content (cookies, setCookie) {
+class JupiterWeather extends Component {
 
-    if (!cookies[cnst.cnst_user_settings_cookie] || cookies[cnst.cnst_user_settings_cookie] == "") {
-        setCookie(cnst.cnst_user_settings_cookie, "New user")
-        return(<h1>New user</h1>);
-    } else  {
-        setCookie(cnst.cnst_user_settings_cookie, "Not a new user")
-        return(<h1>Not a new user</h1>);
+    cookies = new Cookies();
+
+    constructor(props) {
+
+        super(props);
+
+        this.state = {
+
+            current_app_contents: cnst.cnst_current_app_content.none,
+            app_ui_layout: <h1>Welcome</h1>
+
+        }
+
     }
-    
+
+    checkUserLogin = (user_session) => { //tells the app what state to start in 
+
+        if (user_session) {
+            return cnst.cnst_current_app_content.app;
+        } else {
+            return cnst.cnst_current_app_content.login;
+        }
+
+    }
+
+    componentDidMount = () => {
+
+        const user_session = this.cookies.get(cnst.cnst_cookies.user_session);
+        const current_app_contents = this.checkUserLogin(user_session);
+        let app_ui_layout = "";
+
+        if (current_app_contents == cnst.cnst_current_app_content.none) {
+
+            //nothing happens, show error message
+
+        } else if (current_app_contents == cnst.cnst_current_app_content.login) {
+
+            app_ui_layout = this.ui_login_layout();
+
+        } else if (current_app_contents == cnst.cnst_current_app_content.setup) {
+
+            //guide user to setup their settings
+
+        } else if (current_app_contents == cnst.cnst_current_app_content.app) {
+
+            //app
+
+        }
+
+        this.setState({
+            current_app_contents,
+            app_ui_layout
+        });
+
+    }
+
+    ui_login_layout = () => {
+
+        return <LoginUI />
+
+    }
+
+    render = () => {
+
+        return (
+            <Fragment>
+                <Container className="align-items-center" style={{ height: "600px", width: "500px", marginTop: "100px", marginBottom: "auto", marginLeft: "auto", marginRight: "auto"}}>
+                    {this.state.app_ui_layout}
+                </Container>
+            </Fragment>
+            );
+    };
+
 }
 
-const JupiterWeather = () => {
-    
-    const [cookies, setCookie] = useCookies([cnst.cnst_user_settings_cookie])
-
-    const [HomePageContent, setHomePageContent] = useState(load_page_content(cookies,setCookie));
-
-    //setHomePageContent(<h1>HELLO THERE</h1>);
-
-    // const getRegions = async () => {
-    //     let regionsList = await REQUEST.GET(`http://dataservice.accuweather.com/locations/v1/regions/?apikey=${process.env.APIKEY}`);
-    //     if (regionsList.data) {
-    //         setHomePageContent(<table>
-    //             {regionsList.data.map(region => {
-    //                 return (
-    //                     <tr>
-    //                         <td>{region.ID}</td>
-    //                         <td>{region.EnglishName}</td>
-    //                         <td>{region.LocalizedName}</td>
-    //                     </tr>);
-    //             })}
-    //         </table>)
-    //     }
-    // }
-
-    return (
-        <>
-            { HomePageContent }
-            <button onClick={() => { setHomePageContent(load_page_content(cookies, setCookie)); }}></button>
-        </>
-    )
-}
-
-export default JupiterWeather
+export default JupiterWeather;
